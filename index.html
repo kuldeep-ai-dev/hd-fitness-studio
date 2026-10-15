@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>HD Fitness Studio | Premium Gym & Strength Arena | Est. 2022</title>
+  <meta name="description"
+    content="HD Fitness Studio - Premier strength training, functional turf, personal coaching, and transformation arena. Claim your free 1-day pass today!">
+  <meta name="theme-color" content="#0a0b0e">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+</head>
+
+<body>
+
+  <!-- Top Notification Bar -->
+  <aside class="top-announcement" id="topAnnouncement" aria-label="Special Offer">
+    <div class="announcement-content">
+      <span class="live-dot"></span>
+      <span class="announcement-text" id="topAnnouncementText"><strong>LIMITED PASSES:</strong> Get a <strong>Free 1-Day
+          Trial Pass</strong> this week!</span>
+      <a href="#trial-modal" class="announcement-link open-trial-modal" id="topAnnouncementLink">Claim Now &rarr;</a>
+    </div>
+  </aside>
+
+  <!-- Sticky Header Navigation -->
+  <header class="site-header" id="header">
+    <div class="nav-container">
+      <a href="#" class="brand-logo" aria-label="HD Fitness Studio Home">
+        <img src="assets/images/logo.png" alt="HD Fitness Studio Logo" class="brand-img" width="54" height="54">
+        <div class="brand-text">
+          <span class="brand-title">HD FITNESS</span>
+          <span class="brand-sub">STUDIO &bull; EST. 2022</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#programs" class="nav-link">Programs</a>
+        <a href="#calculator" class="nav-link">BMI Tool</a>
+        <a href="#schedule" class="nav-link">Schedule</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#coaches" class="nav-link">Coaches</a>
+        <a href="#contact" class="nav-link">Visit Us</a>
+      </nav>
+
+      <!-- Header CTAs -->
+      <div class="header-actions">
+        <a href="tel:+919707288610" class="btn-icon" aria-label="Call HD Fitness Studio" title="Call Us">
+          <i data-lucide="phone"></i>
+        </a>
+        <button class="btn btn-primary btn-sm open-trial-modal" id="header-trial-btn">Free Pass</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open mobile navigation menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <img src="assets/images/logo.png" alt="HD Fitness Studio" width="44" height="44">
+        <div>
+          <div class="drawer-title">HD FITNESS</div>
+          <span class="drawer-tag">STUDIO EST. 2022</span>
+        </div>
+      </div>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <div class="drawer-status-chip" id="drawerLiveStatus">
+      <span class="status-indicator-green"></span>
+      <span>Open Now &bull; Mon-Sat: 5AM-12PM & 3PM-10PM</span>
+    </div>
+
+    <nav class="drawer-nav">
+      <a href="#about" class="drawer-link"><i data-lucide="info"></i> About Studio</a>
+      <a href="#programs" class="drawer-link"><i data-lucide="dumbbell"></i> Training Programs</a>
+      <a href="#calculator" class="drawer-link"><i data-lucide="calculator"></i> BMI & Calorie Tool</a>
+      <a href="#schedule" class="drawer-link"><i data-lucide="calendar"></i> Weekly Schedule</a>
+      <a href="#pricing" class="drawer-link"><i data-lucide="credit-card"></i> Memberships & Rates</a>
+      <a href="#coaches" class="drawer-link"><i data-lucide="award"></i> Certified Coaches</a>
+      <a href="#reviews" class="drawer-link"><i data-lucide="star"></i> Member Reviews</a>
+      <a href="#contact" class="drawer-link"><i data-lucide="map-pin"></i> Location & Contact</a>
+    </nav>
+
+    <div class="drawer-footer">
+      <button class="btn btn-primary btn-block open-trial-modal">
+        <i data-lucide="ticket"></i> Claim Free 1-Day Pass
+      </button>
+      <div class="drawer-contact-row">
+        <a href="https://wa.me/919707288610?text=Hi%20HD%20Fitness%20Studio!%20I%20want%20to%20know%20more%20about%20memberships."
+          target="_blank" class="btn-whatsapp-pill">
+          <i data-lucide="message-circle"></i> Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home">
+      <div class="hero-backdrop-img" style="background-image: url('assets/images/hero.png');"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-container">
+
+        <div class="hero-badges-wrapper">
+          <span class="hero-pill-badge">
+            <span class="pill-badge-dot"></span>
+            ESTABLISHED 2022 &bull; SILAPATHAR, DHEMAJI
+          </span>
+          <span class="hero-rating-badge">
+            <i data-lucide="star" class="icon-gold"></i>
+            4.9 / 5.0 (420+ Reviews)
+          </span>
+        </div>
+
+        <h1 class="hero-heading">
+          FORGE YOUR <span class="gradient-text">STRONGEST</span> SELF.
+        </h1>
+
+        <p class="hero-description">
+          HD Fitness Studio is a premier strength & conditioning arena engineered for real results. Olympic
+          lifting platforms, functional turf, and elite certified personal coaching across 2 spacious floors.
+        </p>
+
+        <div class="hero-cta-group">
+          <button class="btn btn-primary btn-lg open-trial-modal" id="hero-pass-btn">
+            <i data-lucide="zap"></i> Claim Free 1-Day Pass
+          </button>
+          <a href="#pricing" class="btn btn-secondary btn-lg">
+            View Memberships
+          </a>
+        </div>
+
+        <!-- Social Proof Stats Grid -->
+        <div class="hero-stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">1,800+</div>
+            <div class="stat-label">Active Members</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2 Floors</div>
+            <div class="stat-label">Spacious Arena</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Elite Coaches</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Results Driven</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HIGHLIGHT TICKER -->
+    <div class="ticker-banner" aria-hidden="true">
+      <div class="ticker-track">
+        <span>&bull; OLYMPIC LIFTING</span>
+        <span>&bull; HIGH INTENSITY HIIT</span>
+        <span>&bull; 2 FLOORS OF EQUIPMENT</span>
+        <span>&bull; FUNCTIONAL TURF ARENA</span>
+        <span>&bull; 1-ON-1 PERSONAL COACHING</span>
+        <span>&bull; POWERLIFTING & CALISTHENICS</span>
+        <span>&bull; OLYMPIC LIFTING</span>
+        <span>&bull; HIGH INTENSITY HIIT</span>
+        <span>&bull; 2 FLOORS OF EQUIPMENT</span>
+        <span>&bull; FUNCTIONAL TURF ARENA</span>
+        <span>&bull; 1-ON-1 PERSONAL COACHING</span>
+        <span>&bull; POWERLIFTING & CALISTHENICS</span>
+      </div>
+    </div>
+
+    <!-- ABOUT & WHY CHOOSE HD SECTION -->
+    <section class="section about-section" id="about">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">WHY HD FITNESS STUDIO</span>
+        </div>
+        <h2 class="section-title text-center">Built For Those Who Demand <span class="gradient-text">Excellence</span>
+        </h2>
+        <p class="section-intro text-center">
+          Founded in 2022, HD Fitness Studio is Silapathar's premier fitness destination. We combine scientific
+          biomechanics equipment, Olympic barbells, intense community energy, and dedicated personal coaching across 2 spacious floors.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <i data-lucide="shield-check"></i>
+            </div>
+            <h3>Biomechanical Precision</h3>
+            <p>Biomechanically engineered pin-loaded & plate-loaded machines designed to hit target muscle fibers
+              without joint stress.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <i data-lucide="flame"></i>
+            </div>
+            <h3>Dedicated Turf & Rig Zone</h3>
+            <p>15-meter sprint turf, competition kettlebells, battle ropes, sleds, plyometric boxes, and multi-station
+              pull-up rigs.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <i data-lucide="users"></i>
+            </div>
+            <h3>Certified Elite Trainers</h3>
+            <p>Internationally certified coaches in strength, sports conditioning, posture correction, and clinical
+              nutrition.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <i data-lucide="layers"></i>
+            </div>
+            <h3>2 Floors of Training Space</h3>
+            <p>Spacious 1st & 2nd floor facility featuring dedicated free weight arenas, cable stations, cardio decks, and turf lanes.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <i data-lucide="clock"></i>
+            </div>
+            <h3>Morning & Evening Slots (Mon-Sat)</h3>
+            <p>5:00 AM – 12:00 PM & 3:00 PM – 10:00 PM Monday through Saturday. Closed on Sundays for weekly deep maintenance.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">
+              <i data-lucide="target"></i>
+            </div>
+            <h3>Personalized Fitness Coaching</h3>
+            <p>Custom progression tracking, posture assessments, and tailored workout plans crafted for your individual fitness goals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINING PROGRAMS & ZONES SECTION -->
+    <section class="section programs-section" id="programs">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">TRAINING PILLARS</span>
+        </div>
+        <h2 class="section-title text-center">World-Class <span class="gradient-text">Programs & Zones</span></h2>
+        <p class="section-intro text-center">
+          Whether your mission is packing on lean mass, shredding stubborn body fat, or athletic agility, our
+          specialized training zones have you covered.
+        </p>
+
+        <div class="programs-grid">
+          <!-- Program 1 -->
+          <article class="program-card">
+            <div class="program-img-wrap">
+              <img src="assets/images/strength.png" alt="Olympic Strength & Bodybuilding Zone" loading="lazy">
+              <span class="program-tag">Strength & Hypertrophy</span>
+            </div>
+            <div class="program-body">
+              <div class="program-meta">
+                <span class="program-intensity"><i data-lucide="flame"></i> High Intensity</span>
+                <span class="program-duration">60 Mins</span>
+              </div>
+              <h3 class="program-title">Heavy Iron & Olympic Arena</h3>
+              <p class="program-desc">Calibrated Eleiko and Rogue plates, deadlift platforms with chalk stations,
+                dumbbells up to 60kg, and heavy power racks.</p>
+              <ul class="program-bullets">
+                <li><i data-lucide="check"></i> Progressive Overload Tracking</li>
+                <li><i data-lucide="check"></i> Form & Posture Spotting</li>
+                <li><i data-lucide="check"></i> Powerlifting & Bodybuilding</li>
+              </ul>
+              <button class="btn btn-outline btn-sm btn-block open-trial-modal">Try This Program</button>
+            </div>
+          </article>
+
+          <!-- Program 2 -->
+          <article class="program-card">
+            <div class="program-img-wrap">
+              <img src="assets/images/turf.png" alt="Functional Turf and HIIT Arena" loading="lazy">
+              <span class="program-tag">Cardio & Agility</span>
+            </div>
+            <div class="program-body">
+              <div class="program-meta">
+                <span class="program-intensity"><i data-lucide="flame"></i> Maximum Burn</span>
+                <span class="program-duration">45 Mins</span>
+              </div>
+              <h3 class="program-title">Functional Turf & HIIT Matrix</h3>
+              <p class="program-desc">High-octane metabolic conditioning incorporating prowler sleds, tire flips, battle
+                ropes, kettlebells, and rowing ergs.</p>
+              <ul class="program-bullets">
+                <li><i data-lucide="check"></i> 800+ Calorie Burn per Session</li>
+                <li><i data-lucide="check"></i> Speed, Explosiveness & Stamina</li>
+                <li><i data-lucide="check"></i> Heart-Rate Monitored Training</li>
+              </ul>
+              <button class="btn btn-outline btn-sm btn-block open-trial-modal">Try This Program</button>
+            </div>
+          </article>
+
+          <!-- Program 3 -->
+          <article class="program-card">
+            <div class="program-img-wrap">
+              <img src="assets/images/wellness.png" alt="Athletic Conditioning and Core" loading="lazy">
+              <span class="program-tag">Conditioning & Core</span>
+            </div>
+            <div class="program-body">
+              <div class="program-meta">
+                <span class="program-intensity"><i data-lucide="sparkles"></i> All Fitness Levels</span>
+                <span class="program-duration">45 Mins</span>
+              </div>
+              <h3 class="program-title">Athletic Conditioning & Core</h3>
+              <p class="program-desc">Dynamic flexibility, core strengthening, kettlebell flows, and calisthenics to build functional stamina and avoid injury.</p>
+              <ul class="program-bullets">
+                <li><i data-lucide="check"></i> Core Stability & Rig Work</li>
+                <li><i data-lucide="check"></i> Calisthenics & Kettlebell Circuits</li>
+                <li><i data-lucide="check"></i> Joint Prehab & Dynamic Mobility</li>
+              </ul>
+              <button class="btn btn-outline btn-sm btn-block open-trial-modal">Try This Program</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE BMI & CALORIE CALCULATOR TOOL -->
+    <section class="section calculator-section" id="calculator">
+      <div class="section-container">
+        <div class="calc-card-glass">
+          <div class="calc-header text-center">
+            <span class="section-subtag">FREE FITNESS TOOL</span>
+            <h2 class="section-title">Calculate Your <span class="gradient-text">BMI & Calorie Target</span></h2>
+            <p class="calc-subtitle">Get instant biometric clarity and your tailored HD Fitness Studio training roadmap
+              in 10 seconds.</p>
+          </div>
+
+          <form class="calc-form" id="bmiForm">
+            <div class="form-row-gender">
+              <label class="gender-pill active">
+                <input type="radio" name="gender" value="male" checked>
+                <i data-lucide="user"></i> Male
+              </label>
+              <label class="gender-pill">
+                <input type="radio" name="gender" value="female">
+                <i data-lucide="user-check"></i> Female
+              </label>
+            </div>
+
+            <div class="calc-inputs-grid">
+              <div class="input-group">
+                <label for="calcAge">Age (Years)</label>
+                <input type="number" id="calcAge" min="14" max="80" value="26" required>
+              </div>
+
+              <div class="input-group">
+                <label for="calcHeight">Height (cm)</label>
+                <input type="number" id="calcHeight" min="100" max="230" value="175" required>
+              </div>
+
+              <div class="input-group">
+                <label for="calcWeight">Current Weight (kg)</label>
+                <input type="number" id="calcWeight" min="35" max="200" value="75" required>
+              </div>
+
+              <div class="input-group">
+                <label for="calcActivity">Weekly Activity Level</label>
+                <select id="calcActivity">
+                  <option value="1.2">Sedentary (Desk Job, little exercise)</option>
+                  <option value="1.375" selected>Lightly Active (1-3 days/week)</option>
+                  <option value="1.55">Moderately Active (3-5 days/week)</option>
+                  <option value="1.725">Very Active (6-7 days intense gym)</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label for="calcGoal">Primary Fitness Goal</label>
+                <select id="calcGoal">
+                  <option value="fat_loss" selected>Fat Loss & Toning (-500 kcal)</option>
+                  <option value="muscle_gain">Lean Muscle Hypertrophy (+350 kcal)</option>
+                  <option value="maintenance">Strength & General Conditioning (Maintenance)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="calculateBmiBtn">
+              <i data-lucide="sparkles"></i> Calculate My Target & Plan
+            </button>
+          </form>
+
+          <!-- Results Box -->
+          <div class="calc-results-box" id="calcResults" style="display: none;">
+            <div class="results-grid">
+              <div class="result-tile">
+                <div class="result-label">Your BMI Score</div>
+                <div class="result-value" id="resBmiValue">24.5</div>
+                <div class="result-badge" id="resBmiBadge">Normal Weight</div>
+              </div>
+
+              <div class="result-tile">
+                <div class="result-label">Recommended Daily Calories</div>
+                <div class="result-value text-gold" id="resCaloriesValue">2,150</div>
+                <div class="result-sub">kcal / day</div>
+              </div>
+
+              <div class="result-tile">
+                <div class="result-label">Recommended Protein</div>
+                <div class="result-value" id="resProteinValue">150g</div>
+                <div class="result-sub">Daily target</div>
+              </div>
+            </div>
+
+            <div class="calc-recommendation">
+              <div class="rec-title"><i data-lucide="target"></i> HD Custom Recommendation:</div>
+              <p id="resRecommendationText">Focus on 4 weekly Strength & Hypertrophy sessions combined with 2 HIIT
+                sessions on our sprint turf to accelerate body recomposition.</p>
+              <div class="calc-action-row">
+                <button class="btn btn-primary btn-sm open-trial-modal" data-pref-goal="Recomposition">
+                  Book Free Assessment with Coach
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEKLY CLASS SCHEDULE & TIMETABLE -->
+    <section class="section schedule-section" id="schedule">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">LIVE TIMETABLE</span>
+        </div>
+        <h2 class="section-title text-center">Weekly <span class="gradient-text">Class Schedule</span></h2>
+        <p class="section-intro text-center">
+          Join high-energy group coaching or specialized athletic sessions led by our head trainers. Filter by day
+          below:
+        </p>
+
+        <!-- Day Selector Tabs -->
+        <div class="schedule-days-bar" role="tablist" aria-label="Schedule Days">
+          <button class="day-tab active" data-day="mon" role="tab" aria-selected="true">Mon</button>
+          <button class="day-tab" data-day="tue" role="tab" aria-selected="false">Tue</button>
+          <button class="day-tab" data-day="wed" role="tab" aria-selected="false">Wed</button>
+          <button class="day-tab" data-day="thu" role="tab" aria-selected="false">Thu</button>
+          <button class="day-tab" data-day="fri" role="tab" aria-selected="false">Fri</button>
+          <button class="day-tab" data-day="sat" role="tab" aria-selected="false">Sat</button>
+          <button class="day-tab" data-day="sun" role="tab" aria-selected="false">Sun</button>
+        </div>
+
+        <!-- Class Cards Container -->
+        <div class="schedule-grid" id="scheduleList">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <div class="schedule-note text-center">
+          <p><i data-lucide="info"></i> General Gym floor access is open <strong>Mon – Sat: 5:00 AM – 12:00 PM & 3:00 PM – 10:00 PM</strong> (Closed on Sundays). Members can reserve slots in any group class.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMBERSHIP PRICING SECTION -->
+    <section class="section pricing-section" id="pricing">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">TRANSPARENT RATES</span>
+        </div>
+        <h2 class="section-title text-center">Invest In Your <span class="gradient-text">Health & Power</span></h2>
+        <p class="section-intro text-center">
+          Zero hidden registration fees. Access to all premium lifting equipment, lockers, and induction sessions.
+        </p>
+
+        <!-- Billing Period Toggle -->
+        <div class="billing-toggle-container">
+          <span class="billing-label" id="lblMonthly">Monthly</span>
+          <button class="toggle-switch" id="pricingToggle" role="switch" aria-checked="false"
+            aria-label="Toggle quarterly or annual billing">
+            <span class="toggle-slider"></span>
+          </button>
+          <span class="billing-label" id="lblAnnual">Annual <span class="badge-discount">SAVE 35%</span></span>
+        </div>
+
+        <div class="pricing-cards-grid">
+          <!-- Silver Plan -->
+          <div class="price-card">
+            <div class="plan-header">
+              <span class="plan-badge">FIT STARTER</span>
+              <h3 class="plan-name">Silver Access</h3>
+              <p class="plan-desc">Perfect for self-motivated lifters needing quality iron and open floor access.</p>
+            </div>
+            <div class="plan-cost">
+              <span class="currency">&#8377;</span>
+              <span class="amount" data-monthly="1,799" data-annual="1,199">1,799</span>
+              <span class="period">/ month</span>
+            </div>
+            <div class="plan-billed-note" data-monthly="Billed monthly" data-annual="Billed ₹14,388 annually">Billed
+              monthly</div>
+            <ul class="plan-features">
+              <li><i data-lucide="check"></i> Full Gym Floor & Weight Arena</li>
+              <li><i data-lucide="check"></i> Free Locker & Shower Access</li>
+              <li><i data-lucide="check"></i> Free 1-on-1 Coach Fitness Induction</li>
+              <li><i data-lucide="check"></i> Cardio & Free Weight Zone</li>
+              <li><i data-lucide="check"></i> Full 2-Floor Facility Access</li>
+              <li class="disabled"><i data-lucide="x"></i> Dedicated Personal Coach</li>
+            </ul>
+            <button class="btn btn-outline btn-block open-trial-modal" data-plan="Silver Access">Choose Silver</button>
+          </div>
+
+          <!-- Gold Plan (POPULAR) -->
+          <div class="price-card popular">
+            <div class="popular-ribbon">MOST POPULAR</div>
+            <div class="plan-header">
+              <span class="plan-badge text-gold">STRENGTH PRO</span>
+              <h3 class="plan-name">Gold Elite</h3>
+              <p class="plan-desc">Our flagship package for maximum results, group classes, and functional turf arena.</p>
+            </div>
+            <div class="plan-cost">
+              <span class="currency">&#8377;</span>
+              <span class="amount" data-monthly="2,799" data-annual="1,899">2,799</span>
+              <span class="period">/ month</span>
+            </div>
+            <div class="plan-billed-note" data-monthly="Billed monthly" data-annual="Billed ₹22,788 annually">Billed
+              monthly</div>
+            <ul class="plan-features">
+              <li><i data-lucide="check"></i> <strong>Unlimited</strong> 2-Floor Gym & Turf Access</li>
+              <li><i data-lucide="check"></i> <strong>All Group Classes Included</strong> (HIIT/Strength)</li>
+              <li><i data-lucide="check"></i> <strong>Functional Turf Arena</strong> access</li>
+              <li><i data-lucide="check"></i> Monthly Coach Progress Review & Diet Blueprint</li>
+              <li><i data-lucide="check"></i> 2 Guest Workout Passes/month</li>
+              <li class="disabled"><i data-lucide="x"></i> Daily 1-on-1 PT Coaching</li>
+            </ul>
+            <button class="btn btn-primary btn-block open-trial-modal" data-plan="Gold Elite">Get Gold Elite</button>
+          </div>
+
+          <!-- Platinum Plan -->
+          <div class="price-card">
+            <div class="plan-header">
+              <span class="plan-badge">MAX TRANSFORMATION</span>
+              <h3 class="plan-name">HD Platinum + PT</h3>
+              <p class="plan-desc">All-inclusive VIP mentorship with dedicated 1-on-1 personal training sessions.</p>
+            </div>
+            <div class="plan-cost">
+              <span class="currency">&#8377;</span>
+              <span class="amount" data-monthly="5,999" data-annual="4,299">5,999</span>
+              <span class="period">/ month</span>
+            </div>
+            <div class="plan-billed-note" data-monthly="Billed monthly" data-annual="Billed ₹51,588 annually">Billed
+              monthly</div>
+            <ul class="plan-features">
+              <li><i data-lucide="check"></i> <strong>12 Monthly 1-on-1 PT Sessions</strong></li>
+              <li><i data-lucide="check"></i> Custom Macronutrient & Meal Planning</li>
+              <li><i data-lucide="check"></i> Priority Locker & VIP Equipment Induction</li>
+              <li><i data-lucide="check"></i> All Group Classes & Turf Arena Access</li>
+              <li><i data-lucide="check"></i> Bi-weekly Physique & Progress Reviews</li>
+              <li><i data-lucide="check"></i> Guaranteed Transformation Protocol</li>
+            </ul>
+            <button class="btn btn-outline btn-block open-trial-modal" data-plan="Platinum VIP">Get Platinum PT</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CERTIFIED TRAINERS & COACHES SECTION -->
+    <section class="section coaches-section" id="coaches">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">EXPERT GUIDANCE</span>
+        </div>
+        <h2 class="section-title text-center">Meet Your <span class="gradient-text">Head Coaches</span></h2>
+        <p class="section-intro text-center">
+          Our trainers don't just count reps; they analyze biomechanics, adjust movement angles, and build resilient
+          athletes.
+        </p>
+
+        <div class="coaches-grid">
+          <!-- Coach 1 -->
+          <div class="coach-card">
+            <div class="coach-img-wrapper">
+              <img src="assets/images/coach-male.png" alt="Coach Rohan Deb - Head Strength Coach" loading="lazy">
+              <div class="coach-overlay-badge">Founder & Head Coach</div>
+            </div>
+            <div class="coach-info">
+              <h3 class="coach-name">Rohan "HD" Deb</h3>
+              <p class="coach-specialty">Strength & Conditioning &bull; CSCS Certified</p>
+              <p class="coach-bio">10+ years coaching experience in competitive powerlifting and physique
+                transformation. Coached over 800+ clients.</p>
+              <div class="coach-stats">
+                <div><strong>10+</strong> Yrs Exp</div>
+                <div><strong>800+</strong> Trained</div>
+                <div><strong>CSCS</strong> Certified</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coach 2 -->
+          <div class="coach-card">
+            <div class="coach-img-wrapper">
+              <img src="assets/images/coach-female.png" alt="Coach Priya Sharma - Functional & Mobility Lead"
+                loading="lazy">
+              <div class="coach-overlay-badge">Functional Lead</div>
+            </div>
+            <div class="coach-info">
+              <h3 class="coach-name">Priya Sharma</h3>
+              <p class="coach-specialty">Functional HIIT, Calisthenics & Nutrition</p>
+              <p class="coach-bio">Specialist in athletic speed, functional bodyweight agility, and pre/post-natal
+                fitness. Certified Precision Nutrition coach.</p>
+              <div class="coach-stats">
+                <div><strong>7+</strong> Yrs Exp</div>
+                <div><strong>500+</strong> Trained</div>
+                <div><strong>ACE/PN1</strong> Certified</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMBER TRANSFORMATIONS & REVIEWS -->
+    <section class="section reviews-section" id="reviews">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">PROVEN RESULTS</span>
+        </div>
+        <h2 class="section-title text-center">Real Stories, Real <span class="gradient-text">Triumphs</span></h2>
+        <p class="section-intro text-center">Over 1,800 fitness journeys started at HD Fitness Studio since 2022.</p>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">
+              <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i
+                data-lucide="star"></i>
+            </div>
+            <p class="review-text">"Joined HD Fitness Studio 6 months ago at 92kg feeling sluggish. With Coach Rohan's
+              structured progressive overload and diet guidance, I'm down to 78kg and benched 100kg for the first time!
+              The equipment here is second to none."</p>
+            <div class="reviewer-meta">
+              <div class="reviewer-avatar">AK</div>
+              <div>
+                <div class="reviewer-name">Ankur Kashyap</div>
+                <div class="reviewer-tag">Lost 14 kg &bull; Gold Member</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">
+              <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i
+                data-lucide="star"></i>
+            </div>
+            <p class="review-text">"The functional turf and 7am HIIT classes with Priya changed my life. The studio is
+              spotlessly clean across both floors, the high-energy vibe and coaches are amazing after leg day, and everyone here is genuinely focused on
+              lifting each other up."</p>
+            <div class="reviewer-meta">
+              <div class="reviewer-avatar">SB</div>
+              <div>
+                <div class="reviewer-name">Sunita Baruah</div>
+                <div class="reviewer-tag">Transformed in 16 Weeks</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">
+              <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i
+                data-lucide="star"></i>
+            </div>
+            <p class="review-text">"Hands down the best gym facility in town. Real Olympic barbells that don't bend,
+              bumper plates, deadlift jacks, and air conditioning that actually works when the gym is packed. 10/10."
+            </p>
+            <div class="reviewer-meta">
+              <div class="reviewer-avatar">DR</div>
+              <div>
+                <div class="reviewer-name">Deepak Roy</div>
+                <div class="reviewer-tag">Powerlifter &bull; Platinum Member</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+      <div class="section-container max-w-md">
+        <div class="section-badge-center">
+          <span class="section-subtag">COMMON QUESTIONS</span>
+        </div>
+        <h2 class="section-title text-center">Frequently Asked <span class="gradient-text">Questions</span></h2>
+
+        <div class="faq-accordion" id="faqAccordion">
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <span>What is included in the 1-Day Free Trial Pass?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <p>Your free pass grants you 100% full access to our weight arena, functional turf, cardio deck, locker
+                rooms, and an introductory coach consultation. No credit card required.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <span>What are the gym operating timings?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <p>Monday to Saturday: <strong>5:00 AM – 12:00 PM</strong> (Morning) & <strong>3:00 PM – 10:00 PM</strong> (Evening).<br>Sunday: <strong>Closed</strong> for weekly sanitization, equipment tuning & rest.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <span>Do you provide customized diet & meal plans?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <p>Yes! All Gold and Platinum memberships include personalized calorie and macronutrient blueprints
+                tailored to your lifestyle (veg, non-veg, vegan, diabetic-friendly, etc.).</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <span>Is car and two-wheeler parking available?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <p>Yes, we have dedicated, secure on-site parking for both two-wheelers and cars with 24/7 security
+                surveillance.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <span>Can beginners join, or is it only for bodybuilders?</span>
+              <i data-lucide="chevron-down" class="faq-icon"></i>
+            </button>
+            <div class="faq-content">
+              <p>HD Fitness Studio is built for everyone from total first-timers to national athletes! Every new member
+                gets an equipment walk-through and safety induction so you feel completely confident.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION & VISIT US SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="section-container">
+        <div class="section-badge-center">
+          <span class="section-subtag">LOCATION & HOURS</span>
+        </div>
+        <h2 class="section-title text-center">Visit <span class="gradient-text">HD Fitness Studio</span></h2>
+        <p class="section-intro text-center">Drop by for a coffee and gym tour, or train right away.</p>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-info-block">
+              <div class="info-icon"><i data-lucide="map-pin"></i></div>
+              <div>
+                <h4>Studio Address</h4>
+                <p>HD Fitness Studio, Above Jio Office, 1st & 2nd Floor, Silapathar Kalyanpur, Dhemaji, Assam 787059</p>
+              </div>
+            </div>
+
+            <div class="contact-info-block">
+              <div class="info-icon"><i data-lucide="clock"></i></div>
+              <div>
+                <h4>Operating Hours</h4>
+                <p><strong>Mon – Sat:</strong> 5:00 AM – 12:00 PM & 3:00 PM – 10:00 PM<br><strong>Sunday:</strong> Closed</p>
+                <div class="status-live-chip mt-2" id="liveOperatingChip">
+                  <span class="live-dot-pulse"></span>
+                  <span id="liveOperatingText">Checking studio status...</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-info-block">
+              <div class="info-icon"><i data-lucide="phone-call"></i></div>
+              <div>
+                <h4>Direct Contact</h4>
+                <p><a href="tel:+919707288610" class="hover-gold">+91 97072 88610</a></p>
+                <p><a href="mailto:contact@hdfitnessstudio.in" class="hover-gold">contact@hdfitnessstudio.in</a></p>
+              </div>
+            </div>
+
+            <div class="contact-action-btns">
+              <a href="https://wa.me/919707288610?text=Hi%20HD%20Fitness%20Studio!%20I'd%20like%20to%20visit%20today."
+                target="_blank" class="btn btn-whatsapp">
+                <i data-lucide="message-circle"></i> Chat on WhatsApp
+              </a>
+              <a href="tel:+919707288610" class="btn btn-secondary">
+                <i data-lucide="phone"></i> Call Now
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Map / Visual Tour Card -->
+          <div class="map-container-card">
+            <div class="map-header">
+              <span><i data-lucide="navigation"></i> Prime Silapathar Location</span>
+              <span class="map-badge">1st & 2nd Floor (Above Jio Office)</span>
+            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14193.364448243306!2d94.7176!3d27.5956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x373fb2a8f9c1b3a3%3A0x8f2d57564d6e6ab!2sSilapathar%2C%20Assam%20787059!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin"
+              class="map-iframe" title="HD Fitness Studio Location" loading="lazy" allowfullscreen>
+            </iframe>
+            <div class="map-footer">
+              <a href="https://maps.google.com/?q=Silapathar+Kalyanpur+Dhemaji+Assam+787059" target="_blank" class="map-directions-btn">
+                <i data-lucide="corner-up-right"></i> Open in Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col-brand">
+          <div class="brand-logo mb-3">
+            <img src="assets/images/logo.png" alt="HD Fitness Studio Logo" width="48" height="48">
+            <div class="brand-text">
+              <span class="brand-title">HD FITNESS</span>
+              <span class="brand-sub">STUDIO &bull; EST. 2022</span>
+            </div>
+          </div>
+          <p class="footer-tagline">
+            Empowering individuals in Silapathar to unlock their peak strength, vitality, and athletic potential through elite
+            equipment and dedicated coaching across 2 floors.
+          </p>
+          <div class="social-links-row">
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+            <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+            <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i data-lucide="youtube"></i></a>
+            <a href="https://wa.me/919707288610" target="_blank" aria-label="WhatsApp"><i
+                data-lucide="message-circle"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#about">About HD Studio</a></li>
+            <li><a href="#programs">Training Programs</a></li>
+            <li><a href="#schedule">Class Timetable</a></li>
+            <li><a href="#calculator">BMI & Calorie Tool</a></li>
+            <li><a href="#pricing">Membership Rates</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Training Zones</h4>
+          <ul>
+            <li><a href="#programs">Olympic Lifting Platforms</a></li>
+            <li><a href="#programs">Functional Sprint Turf</a></li>
+            <li><a href="#programs">Cardio Endurance Deck</a></li>
+            <li><a href="#programs">1-on-1 Personal Training</a></li>
+            <li><a href="#programs">Conditioning & Core Arena</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hours & Info</h4>
+          <p class="footer-text"><strong>Mon-Sat:</strong> 5:00 AM – 12:00 PM</p>
+          <p class="footer-text"><strong>Evening:</strong> 3:00 PM – 10:00 PM</p>
+          <p class="footer-text"><strong>Sunday:</strong> Closed</p>
+          <p class="footer-text mt-2"><i data-lucide="map-pin"></i> Silapathar Kalyanpur, Dhemaji, Assam 787059</p>
+          <p class="footer-text"><i data-lucide="phone"></i> +91 97072 88610</p>
+          <p class="footer-text"><i data-lucide="mail"></i> contact@hdfitnessstudio.in</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2022 – 2026 HD Fitness Studio. All rights reserved. Built with high performance standards.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <span>&bull;</span>
+          <a href="#">Terms of Membership</a>
+          <span>&bull;</span>
+          <a href="admin/" target="_blank" style="color: var(--gold); font-weight: 600;"><i data-lucide="shield"
+              style="width:12px; height:12px; display:inline; vertical-align:middle;"></i> Admin Console</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE FLOATING BOTTOM ACTION BAR -->
+  <aside class="mobile-bottom-bar" id="mobileBottomBar" aria-label="Mobile Quick Actions">
+    <a href="tel:+919707288610" class="m-bar-btn" id="mBarCall" aria-label="Call Gym">
+      <i data-lucide="phone"></i>
+      <span>Call</span>
+    </a>
+    <a href="https://wa.me/919707288610?text=Hi%20HD%20Fitness%20Studio!%20I'm%20interested%20in%20joining."
+      target="_blank" class="m-bar-btn m-bar-whatsapp" aria-label="Chat WhatsApp">
+      <i data-lucide="message-circle"></i>
+      <span>WhatsApp</span>
+    </a>
+    <button class="m-bar-cta open-trial-modal" id="mBarTrial">
+      <i data-lucide="ticket"></i>
+      <span>Claim Free Pass</span>
+    </button>
+  </aside>
+
+  <!-- 1-DAY FREE TRIAL BOOKING MODAL -->
+  <div class="modal-backdrop" id="trialModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+    style="display: none;">
+    <div class="modal-dialog">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close booking modal">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-badge">
+          <i data-lucide="sparkles"></i> 100% FREE &bull; NO COMMITMENT
+        </div>
+        <h2 id="modalTitle" class="modal-heading">Claim Your Free VIP Pass</h2>
+        <p class="modal-sub">Experience Silapathar's finest training arena across 2 floors with world-class equipment.</p>
+      </div>
+
+      <form id="trialBookingForm" class="modal-form">
+        <div class="form-group">
+          <label for="trialName">Full Name *</label>
+          <div class="input-with-icon">
+            <i data-lucide="user"></i>
+            <input type="text" id="trialName" placeholder="e.g. Vikram Sharma" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="trialPhone">WhatsApp / Mobile Number *</label>
+          <div class="input-with-icon">
+            <i data-lucide="phone"></i>
+            <input type="tel" id="trialPhone" placeholder="e.g. 9707288610" pattern="[0-9]{10}" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="trialGoal">Primary Fitness Goal</label>
+            <select id="trialGoal">
+              <option value="Fat Loss & Shredding">Fat Loss & Shredding</option>
+              <option value="Muscle Hypertrophy">Muscle Hypertrophy & Bulk</option>
+              <option value="General Athletic Fitness" selected>General Athletic Fitness</option>
+              <option value="Strength & Powerlifting">Strength & Powerlifting</option>
+              <option value="1-on-1 Personal Training">1-on-1 Personal Training</option>
+            </select>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="trialTime">Preferred Visit Time</label>
+            <select id="trialTime">
+              <option value="Morning (5:00 AM - 12:00 PM)">Morning (5 AM - 12 PM)</option>
+              <option value="Evening (3:00 PM - 10:00 PM)" selected>Evening (3 - 10 PM)</option>
+            </select>
+          </div>
+        </div>
+
+        <input type="hidden" id="selectedPlanInput" value="1-Day Free Trial">
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitTrialBtn">
+          <i data-lucide="sparkles"></i> Claim Free 1-Day Trial Pass
+        </button>
+
+        <p class="modal-privacy-note">
+          <i data-lucide="lock"></i> Your information is strictly confidential. No spam calls.
+        </p>
+      </form>
+
+      <!-- Success Confirmation State (shown after booking) -->
+      <div class="modal-success-state" id="modalSuccessState" style="display: none;">
+        <div class="success-icon-wrap">
+          <i data-lucide="check-circle-2"></i>
+        </div>
+        <h3>Trial Pass Confirmed!</h3>
+        <p id="successMessageDetail">Your VIP trial pass has been registered with our team. Please show your name or phone number at our front reception desk when you arrive.</p>
+        <button class="btn btn-primary btn-block mt-3" id="closeSuccessBtn">Done</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Supabase JS Client & Data Layer -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase-client.js?v=4.0"></script>
+
+  <!-- Main JavaScript -->
+  <script src="assets/js/main.js?v=4.0"></script>
+</body>
+
+</html>

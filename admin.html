@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Console | HD Fitness Studio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Stylesheets with Cache Busting -->
+    <link rel="stylesheet" href="assets/css/style.css?v=3.8">
+    <link rel="stylesheet" href="assets/css/admin.css?v=3.8">
+
+    <!-- Critical In-Head Style Override for Modal Stacking and Direct Logout -->
+    <style>
+        .admin-modal {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.82) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            z-index: 999999 !important;
+            display: none;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 24px !important;
+            box-sizing: border-box !important;
+            overflow-y: auto !important;
+        }
+        .admin-modal.active {
+            display: flex !important;
+        }
+        .admin-modal-backdrop,
+        .admin-modal .modal-backdrop,
+        .admin-modal .admin-modal-backdrop {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        .admin-modal-dialog,
+        .admin-modal .admin-modal-dialog,
+        .admin-modal .modal-dialog {
+            position: relative !important;
+            z-index: 1000000 !important;
+            background: #11141c !important;
+            border: 1px solid rgba(245, 158, 11, 0.5) !important;
+            border-radius: 16px !important;
+            width: 100% !important;
+            max-width: 580px !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.25) !important;
+            margin: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            display: block !important;
+        }
+        .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(239, 68, 68, 0.15) !important;
+            border: 1px solid rgba(239, 68, 68, 0.45) !important;
+            color: #fca5a5 !important;
+            padding: 6px 14px !important;
+            border-radius: 999px !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            line-height: 1 !important;
+        }
+        .btn-logout:hover {
+            background: #ef4444 !important;
+            border-color: #ef4444 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 16px rgba(239, 68, 68, 0.55) !important;
+            transform: translateY(-1px);
+        }
+        .btn-logout svg, .btn-logout i {
+            width: 14px !important;
+            height: 14px !important;
+        }
+        .modal-close, .admin-modal .modal-close {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
+            border-radius: 50% !important;
+            width: 34px !important;
+            height: 34px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #e2e8f0 !important;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            transition: all 0.2s ease !important;
+        }
+        .modal-close:hover, .admin-modal .modal-close:hover {
+            background: rgba(239, 68, 68, 0.35) !important;
+            border-color: rgba(239, 68, 68, 0.8) !important;
+            color: #ffffff !important;
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+
+<body class="admin-body">
+
+    <!-- Supabase Authentication Gate (Fullscreen Glassmorphism Overlay) -->
+    <div class="auth-gate-overlay" id="adminAuthGate">
+        <div class="auth-card">
+            <!-- Brand header -->
+            <div class="auth-header">
+                <div class="auth-logo-wrap">
+                    <img src="assets/images/logo.png" alt="HD Fitness Studio" class="auth-logo">
+                    <div class="auth-logo-glow"></div>
+                </div>
+                <h2 class="auth-title">HD FITNESS <span class="text-gold">STUDIO</span></h2>
+                <p class="auth-subtitle">Management Console · Restricted Access</p>
+            </div>
+
+            <!-- Divider line -->
+            <div class="auth-divider"></div>
+
+            <!-- Alert Notification -->
+            <div class="auth-alert" id="auth-alert-box" style="display: none;"></div>
+
+            <!-- Dedicated Sign In Form -->
+            <form id="form-auth-signin" class="auth-form">
+                <div class="form-group">
+                    <label class="form-label">Admin Email</label>
+                    <div class="input-icon-wrap">
+                        <i data-lucide="at-sign"></i>
+                        <input type="email" id="auth-signin-email" class="form-control" required
+                            placeholder="admin@hdfitnessstudio.in" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-icon-wrap">
+                        <i data-lucide="key-round"></i>
+                        <input type="password" id="auth-signin-password" class="form-control" required
+                            placeholder="••••••••" autocomplete="current-password">
+                        <button type="button" class="btn-toggle-pwd"
+                            onclick="adminApp.togglePasswordVisibility('auth-signin-password')">
+                            <i data-lucide="eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full btn-auth-submit" id="btn-signin-submit">
+                    <i data-lucide="shield-check"></i> Sign In to Studio Console
+                </button>
+            </form>
+
+            <!-- Security footer -->
+            <div class="auth-footer-help">
+                <span class="auth-badge-secured">
+                    <i data-lucide="shield-check"></i> Authorized Personnel Only
+                </span>
+                <span class="auth-badge-secured">
+                    <i data-lucide="lock-keyhole"></i> 256-bit Encrypted
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Admin Bar -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-brand">
+                <img src="assets/images/logo.png" alt="HD Fitness Studio" class="admin-logo">
+                <div class="admin-brand-info">
+                    <div class="admin-title">HD FITNESS <span class="badge-role">ADMIN</span></div>
+                    <div class="admin-status" id="supabase-status-pill">
+                        <span class="status-dot"></span>
+                        <span id="supabase-status-text">Studio Operations Live</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-header-actions">
+                <!-- User Session Pill -->
+                <div class="admin-user-badge" id="adminUserPill" style="display: none;">
+                    <div class="user-avatar" id="adminUserInitial">A</div>
+                    <span class="user-email" id="adminUserEmail">admin@hdfitnessstudio.in</span>
+                </div>
+
+                <!-- Direct Dedicated Logout Button -->
+                <button type="button" class="btn btn-logout" id="adminSignOutBtn" title="Logout of Studio Console"
+                    onclick="adminApp.signOut()" style="display: none;">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </button>
+
+                <a href="index.html" target="_blank" class="btn btn-outline btn-sm">
+                    <i data-lucide="external-link"></i>
+                    <span>View Site</span>
+                </a>
+                <button class="btn btn-primary btn-sm" id="btn-quick-offer">
+                    <i data-lucide="zap"></i>
+                    <span>Launch Offer</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Main Container -->
+    <div class="admin-container">
+
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside class="admin-sidebar" id="admin-sidebar">
+            <nav class="admin-nav">
+                <button class="nav-item active" data-tab="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-tab="schedule">
+                    <i data-lucide="calendar"></i>
+                    <span>Weekly Schedule</span>
+                </button>
+                <button class="nav-item" data-tab="programs">
+                    <i data-lucide="dumbbell"></i>
+                    <span>Programs</span>
+                </button>
+                <button class="nav-item" data-tab="pricing">
+                    <i data-lucide="credit-card"></i>
+                    <span>Pricing & Plans</span>
+                </button>
+                <button class="nav-item" data-tab="coaches">
+                    <i data-lucide="users"></i>
+                    <span>Coaches</span>
+                </button>
+                <button class="nav-item" data-tab="offers">
+                    <i data-lucide="sparkles"></i>
+                    <span>Offers & Promos</span>
+                </button>
+                <button class="nav-item" data-tab="leads">
+                    <i data-lucide="user-check"></i>
+                    <span>Trial Leads</span>
+                    <span class="badge-count" id="leads-count-badge">0</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+
+            <!-- ================= 1. DASHBOARD TAB ================= -->
+            <section class="admin-tab-pane active" id="pane-dashboard">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Studio Dashboard</h1>
+                        <p class="pane-subtitle">Live overview of HD Fitness Studio operations and performance</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-secondary btn-sm" id="refresh-dashboard-btn">
+                            <i data-lucide="refresh-cw"></i> Refresh Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Metric Stat Cards -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon gold"><i data-lucide="calendar"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Scheduled Classes</span>
+                            <span class="metric-value" id="stat-classes">--</span>
+                            <span class="metric-sub">Across 7 days</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon blue"><i data-lucide="dumbbell"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Active Programs</span>
+                            <span class="metric-value" id="stat-programs">--</span>
+                            <span class="metric-sub">Strength, Turf & Recovery</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon green"><i data-lucide="users"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Elite Coaches</span>
+                            <span class="metric-value" id="stat-coaches">--</span>
+                            <span class="metric-sub">Certified Trainers</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon red"><i data-lucide="sparkles"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Active Offers</span>
+                            <span class="metric-value" id="stat-offers">--</span>
+                            <span class="metric-sub">Live on Homepage</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon purple"><i data-lucide="user-check"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Trial Leads</span>
+                            <span class="metric-value" id="stat-leads">--</span>
+                            <span class="metric-sub">Free Passes claimed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Launch Banner & Active Offer Box -->
+                <div class="active-offer-card" id="dashboard-active-offer-box">
+                    <div class="active-offer-header">
+                        <div class="badge-live"><span class="pulse"></span> LIVE TOP BANNER OFFER</div>
+                        <button class="btn btn-sm btn-outline" onclick="adminApp.switchTab('offers')">Edit in
+                            Offers</button>
+                    </div>
+                    <h3 class="active-offer-title" id="dash-offer-title">Loading current offer...</h3>
+                    <p class="active-offer-banner" id="dash-offer-banner">--</p>
+                </div>
+
+                <!-- Recent Leads Quick Preview -->
+                <div class="section-card">
+                    <div class="card-header-flex">
+                        <div>
+                            <h2 class="card-title">Recent Free Trial Leads</h2>
+                            <p class="card-subtitle">Direct inquiries submitted from the website</p>
+                        </div>
+                        <button class="btn btn-sm btn-secondary" onclick="adminApp.switchTab('leads')">View All
+                            Leads</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Fitness Goal</th>
+                                    <th>Slot</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dash-recent-leads-tbody">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">No leads recorded yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= 2. SCHEDULE TAB ================= -->
+            <section class="admin-tab-pane" id="pane-schedule">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Weekly Class Schedule</h1>
+                        <p class="pane-subtitle">Manage class times, coaches, zones, and capacity</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-primary" id="btn-add-class">
+                            <i data-lucide="plus"></i> Add New Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Day Filter Tabs -->
+                <div class="admin-filter-bar">
+                    <div class="day-tabs-scroll" id="admin-day-tabs">
+                        <button class="filter-tab active" data-day="Monday">Monday</button>
+                        <button class="filter-tab" data-day="Tuesday">Tuesday</button>
+                        <button class="filter-tab" data-day="Wednesday">Wednesday</button>
+                        <button class="filter-tab" data-day="Thursday">Thursday</button>
+                        <button class="filter-tab" data-day="Friday">Friday</button>
+                        <button class="filter-tab" data-day="Saturday">Saturday</button>
+                        <button class="filter-tab" data-day="Sunday">Sunday</button>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Time Slot</th>
+                                    <th>Class Title</th>
+                                    <th>Coach</th>
+                                    <th>Zone</th>
+                                    <th>Capacity</th>
+                                    <th>Intensity</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schedule-tbody">
+                                <tr>
+                                    <td colspan="8" class="text-center py-4">Loading schedule...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= 3. PROGRAMS TAB ================= -->
+            <section class="admin-tab-pane" id="pane-programs">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Fitness Programs & Zones</h1>
+                        <p class="pane-subtitle">Configure training programs displayed on the website</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-primary" id="btn-add-program">
+                            <i data-lucide="plus"></i> Add New Program
+                        </button>
+                    </div>
+                </div>
+
+                <div class="programs-admin-grid" id="programs-cards-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- ================= 4. PRICING TAB ================= -->
+            <section class="admin-tab-pane" id="pane-pricing">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Pricing & Membership Tiers</h1>
+                        <p class="pane-subtitle">Manage membership plans, monthly/annual rates, and features</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-primary" id="btn-add-plan">
+                            <i data-lucide="plus"></i> Add New Plan
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pricing-admin-grid" id="pricing-cards-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- ================= 5. COACHES TAB ================= -->
+            <section class="admin-tab-pane" id="pane-coaches">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Coaches & Trainers</h1>
+                        <p class="pane-subtitle">Manage coaching staff, bios, certifications, and social profiles</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-primary" id="btn-add-coach">
+                            <i data-lucide="user-plus"></i> Add Coach
+                        </button>
+                    </div>
+                </div>
+
+                <div class="coaches-admin-grid" id="coaches-cards-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- ================= 6. OFFERS TAB ================= -->
+            <section class="admin-tab-pane" id="pane-offers">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Promotional Offers & Banners</h1>
+                        <p class="pane-subtitle">Launch flash discounts and update the live website announcement banner
+                        </p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-primary" id="btn-create-offer">
+                            <i data-lucide="sparkles"></i> Launch New Offer
+                        </button>
+                    </div>
+                </div>
+
+                <div class="offers-admin-list" id="offers-list-container">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- ================= 7. LEADS TAB ================= -->
+            <section class="admin-tab-pane" id="pane-leads">
+                <div class="pane-header">
+                    <div>
+                        <h1 class="pane-title">Free Trial Pass Leads</h1>
+                        <p class="pane-subtitle">Manage incoming trial bookings and direct WhatsApp outreach</p>
+                    </div>
+                    <div class="pane-actions">
+                        <button class="btn btn-secondary btn-sm" id="btn-export-leads">
+                            <i data-lucide="download"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Fitness Goal</th>
+                                    <th>Preferred Slot</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Quick Outreach</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leads-tbody">
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">No leads found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Tab Bar -->
+    <nav class="admin-mobile-tabs">
+        <button class="mobile-tab-btn active" data-tab="dashboard">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+        </button>
+        <button class="mobile-tab-btn" data-tab="schedule">
+            <i data-lucide="calendar"></i>
+            <span>Schedule</span>
+        </button>
+        <button class="mobile-tab-btn" data-tab="programs">
+            <i data-lucide="dumbbell"></i>
+            <span>Programs</span>
+        </button>
+        <button class="mobile-tab-btn" data-tab="coaches">
+            <i data-lucide="users"></i>
+            <span>Coaches</span>
+        </button>
+        <button class="mobile-tab-btn" data-tab="offers">
+            <i data-lucide="sparkles"></i>
+            <span>Offers</span>
+        </button>
+        <button class="mobile-tab-btn" data-tab="leads">
+            <i data-lucide="user-check"></i>
+            <span>Leads</span>
+        </button>
+    </nav>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. Class Modal -->
+    <div class="admin-modal" id="modal-class">
+        <div class="modal-dialog admin-modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="class-modal-title">Add Class</h3>
+                <button type="button" class="modal-close" data-close-modal title="Close modal" onclick="adminApp.closeAllModals()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-class" class="admin-form">
+                <input type="hidden" id="class-id">
+                <div class="form-group">
+                    <label class="form-label">Class Title</label>
+                    <input type="text" id="class-title" class="form-control" required
+                        placeholder="e.g. Morning Barbell Strength">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Day of Week</label>
+                        <select id="class-day" class="form-control" required>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="class-category" class="form-control" required>
+                            <option value="strength">Strength</option>
+                            <option value="hiit">HIIT & Turf</option>
+                            <option value="crossfit">CrossFit</option>
+                            <option value="mobility">Mobility / Recovery</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Time</label>
+                        <input type="text" id="class-start" class="form-control" required placeholder="06:30 AM">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Time</label>
+                        <input type="text" id="class-end" class="form-control" required placeholder="07:30 AM">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Coach Name</label>
+                        <input type="text" id="class-coach" class="form-control" required placeholder="Vikram Sharma">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Studio Zone</label>
+                        <input type="text" id="class-zone" class="form-control" required
+                            placeholder="Lifting Deck / Turf">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Capacity</label>
+                        <input type="number" id="class-capacity" class="form-control" required value="20">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Intensity</label>
+                        <select id="class-intensity" class="form-control">
+                            <option value="Moderate">Moderate</option>
+                            <option value="High" selected>High</option>
+                            <option value="Extreme">Extreme</option>
+                            <option value="Restorative">Restorative</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal onclick="adminApp.closeAllModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Class</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Program Modal -->
+    <div class="admin-modal" id="modal-program">
+        <div class="modal-dialog admin-modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="program-modal-title">Add Program</h3>
+                <button type="button" class="modal-close" data-close-modal title="Close modal" onclick="adminApp.closeAllModals()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-program" class="admin-form">
+                <input type="hidden" id="prog-id">
+                <div class="form-group">
+                    <label class="form-label">Program Title</label>
+                    <input type="text" id="prog-title" class="form-control" required
+                        placeholder="e.g. Hypertrophy & Strength">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <input type="text" id="prog-category" class="form-control" required
+                            placeholder="e.g. Strength & Conditioning">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Badge Label (optional)</label>
+                        <input type="text" id="prog-badge" class="form-control" placeholder="e.g. Most Popular">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Duration</label>
+                        <input type="text" id="prog-duration" class="form-control" required placeholder="e.g. 60 Mins">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Intensity</label>
+                        <input type="text" id="prog-intensity" class="form-control" required placeholder="e.g. High">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="prog-description" class="form-control" rows="3" required
+                        placeholder="Program description..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Key Features (one per line)</label>
+                    <textarea id="prog-features" class="form-control" rows="3"
+                        placeholder="Deadlift & Squat Platforms&#10;Progressive Overload Tracking"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cover Image URL</label>
+                    <input type="text" id="prog-image" class="form-control"
+                        placeholder="assets/images/zone_strength.png">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal onclick="adminApp.closeAllModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Program</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Coach Modal -->
+    <div class="admin-modal" id="modal-coach">
+        <div class="modal-dialog admin-modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="coach-modal-title">Add Coach</h3>
+                <button type="button" class="modal-close" data-close-modal title="Close modal" onclick="adminApp.closeAllModals()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-coach" class="admin-form">
+                <input type="hidden" id="coach-id">
+                <div class="form-group">
+                    <label class="form-label">Coach Name</label>
+                    <input type="text" id="coach-name" class="form-control" required placeholder="e.g. Vikram Sharma">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Role / Title</label>
+                    <input type="text" id="coach-role" class="form-control" required
+                        placeholder="e.g. Head Strength & Conditioning Coach">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Experience</label>
+                        <input type="text" id="coach-experience" class="form-control" required
+                            placeholder="e.g. 9+ Years">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Instagram Handle</label>
+                        <input type="text" id="coach-instagram" class="form-control" placeholder="@username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Certifications</label>
+                    <input type="text" id="coach-certifications" class="form-control" required
+                        placeholder="e.g. CSCS, NSCA, K-11 Master">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Specialties</label>
+                    <input type="text" id="coach-specialties" class="form-control" required
+                        placeholder="e.g. Olympic Weightlifting, Hypertrophy">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Photo URL</label>
+                    <input type="text" id="coach-image" class="form-control"
+                        placeholder="assets/images/trainer_head.png">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal onclick="adminApp.closeAllModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Coach</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. Plan Modal -->
+    <div class="admin-modal" id="modal-plan">
+        <div class="modal-dialog admin-modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="plan-modal-title">Add Membership Plan</h3>
+                <button type="button" class="modal-close" data-close-modal title="Close modal" onclick="adminApp.closeAllModals()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-plan" class="admin-form">
+                <input type="hidden" id="plan-id">
+                <div class="form-group">
+                    <label class="form-label">Plan Name</label>
+                    <input type="text" id="plan-name" class="form-control" required placeholder="e.g. Pro Performance">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Monthly Rate (₹)</label>
+                        <input type="number" id="plan-monthly" class="form-control" required placeholder="3999">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Annual Discounted Monthly (₹)</label>
+                        <input type="number" id="plan-annual" class="form-control" required placeholder="3199">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Badge Label (optional)</label>
+                        <input type="text" id="plan-badge" class="form-control" placeholder="e.g. Most Popular">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Is Featured / Highlighted</label>
+                        <select id="plan-featured" class="form-control">
+                            <option value="false">Standard Card</option>
+                            <option value="true">Featured Card (Golden Border)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Short Description</label>
+                    <input type="text" id="plan-desc" class="form-control" required
+                        placeholder="Complete all-inclusive fitness package...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Features Included (one per line)</label>
+                    <textarea id="plan-features" class="form-control" rows="4"
+                        placeholder="Unlimited gym access&#10;Group classes included"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal onclick="adminApp.closeAllModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Plan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. Offer Modal -->
+    <div class="admin-modal" id="modal-offer">
+        <div class="modal-dialog admin-modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="offer-modal-title">Launch Promotional Offer</h3>
+                <button type="button" class="modal-close" data-close-modal title="Close modal" onclick="adminApp.closeAllModals()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-offer" class="admin-form">
+                <input type="hidden" id="offer-id">
+                <div class="form-group">
+                    <label class="form-label">Campaign Title (Internal Name)</label>
+                    <input type="text" id="offer-title" class="form-control" required
+                        placeholder="e.g. Diwali Flash Sale - 20% Off">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Top Banner Text (Displayed on Website)</label>
+                    <input type="text" id="offer-banner" class="form-control" required
+                        placeholder="e.g. LIMITED PASSES: Claim your Free 1-Day Trial Pass this week!">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">CTA Button Text</label>
+                        <input type="text" id="offer-cta" class="form-control" required value="Claim Now →">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CTA Link</label>
+                        <input type="text" id="offer-link" class="form-control" required value="#trial-modal">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Promo Code (optional)</label>
+                        <input type="text" id="offer-code" class="form-control" placeholder="e.g. HD20">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Discount % (optional)</label>
+                        <input type="number" id="offer-discount" class="form-control" placeholder="20">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Valid Until</label>
+                        <input type="text" id="offer-valid" class="form-control" placeholder="e.g. Sunday Midnight">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Set as Live Top Banner</label>
+                        <select id="offer-active" class="form-control">
+                            <option value="true" selected>Active (Show Immediately on Site)</option>
+                            <option value="false">Inactive / Draft</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal onclick="adminApp.closeAllModals()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Publish Offer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts with Cache Busting -->
+    <script src="assets/js/supabase-client.js?v=3.8"></script>
+    <script src="assets/js/admin.js?v=3.8"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
