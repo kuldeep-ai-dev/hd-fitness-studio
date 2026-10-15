@@ -486,7 +486,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 9. Toast Notification Helper
+  // 10. Sync Hero Stat Counters from Database
+  if (window.HD_API && window.HD_API.getStudioStats) {
+    window.HD_API.getStudioStats().then(stats => {
+      if (stats) {
+        const s1Num = document.getElementById('hero-stat-num-1');
+        const s1Lbl = document.getElementById('hero-stat-label-1');
+        const s2Num = document.getElementById('hero-stat-num-2');
+        const s2Lbl = document.getElementById('hero-stat-label-2');
+        const s3Num = document.getElementById('hero-stat-num-3');
+        const s3Lbl = document.getElementById('hero-stat-label-3');
+        const s4Num = document.getElementById('hero-stat-num-4');
+        const s4Lbl = document.getElementById('hero-stat-label-4');
+
+        if (s1Num && stats.stat1_number) s1Num.textContent = stats.stat1_number;
+        if (s1Lbl && stats.stat1_label) s1Lbl.textContent = stats.stat1_label;
+        if (s2Num && stats.stat2_number) s2Num.textContent = stats.stat2_number;
+        if (s2Lbl && stats.stat2_label) s2Lbl.textContent = stats.stat2_label;
+        if (s3Num && stats.stat3_number) s3Num.textContent = stats.stat3_number;
+        if (s3Lbl && stats.stat3_label) s3Lbl.textContent = stats.stat3_label;
+        if (s4Num && stats.stat4_number) s4Num.textContent = stats.stat4_number;
+        if (s4Lbl && stats.stat4_label) s4Lbl.textContent = stats.stat4_label;
+      }
+    }).catch(e => {
+      console.warn('[HD Studio] Stats sync fallback:', e);
+    });
+  }
+
+  // 11. Toast Notification Helper
   function showToast(message) {
     const container = document.getElementById('toastContainer');
     if (!container) return;

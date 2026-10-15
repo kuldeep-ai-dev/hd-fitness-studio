@@ -251,7 +251,18 @@ const HD_FALLBACKS = {
             is_active: true,
             show_top_banner: true
         }
-    ]
+    ],
+    stats: {
+        id: 'hero_stats',
+        stat1_number: '1,800+',
+        stat1_label: 'Active Members',
+        stat2_number: '2 Floors',
+        stat2_label: 'Spacious Arena',
+        stat3_number: '15+',
+        stat3_label: 'Elite Coaches',
+        stat4_number: '100%',
+        stat4_label: 'Results Driven'
+    }
 };
 
 // Data Layer API
@@ -624,5 +635,49 @@ window.HD_API = {
         const { error } = await supabaseClient.from('trial_bookings').delete().eq('id', id);
         if (error) throw error;
         return { success: true };
+    },
+
+    // HERO STATS (HOMEPAGE SOCIAL PROOF COUNTERS)
+    async getStudioStats() {
+        if (!supabaseClient) return HD_FALLBACKS.stats;
+        try {
+            const { data, error } = await supabaseClient
+                .from('studio_stats')
+                .select('*')
+                .eq('id', 'hero_stats')
+                .maybeSingle();
+            if (error) throw error;
+            return data || HD_FALLBACKS.stats;
+        } catch (e) {
+            console.warn('[HD_API] getStudioStats error, using fallback:', e);
+            return HD_FALLBACKS.stats;
+        }
+    },
+
+    async saveStudioStats(stats) {
+        if (!supabaseClient) throw new Error('Supabase client not initialized');
+        try {
+            const payload = {
+                id: 'hero_stats',
+                stat1_number: stats.stat1_number || '1,800+',
+                stat1_label: stats.stat1_label || 'Active Members',
+                stat2_number: stats.stat2_number || '2 Floors',
+                stat2_label: stats.stat2_label || 'Spacious Arena',
+                stat3_number: stats.stat3_number || '15+',
+                stat3_label: stats.stat3_label || 'Elite Coaches',
+                stat4_number: stats.stat4_number || '100%',
+                stat4_label: stats.stat4_label || 'Results Driven',
+                updated_at: new Date().toISOString()
+            };
+            const { data, error } = await supabaseClient
+                .from('studio_stats')
+                .upsert(payload)
+                .select();
+            if (error) throw error;
+            return { success: true, data: data ? data[0] : payload };
+        } catch (e) {
+            console.error('[HD_API] saveStudioStats error:', e);
+            return { success: false, error: e };
+        }
     }
 };

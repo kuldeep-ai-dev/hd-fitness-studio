@@ -9,7 +9,7 @@ const adminApp = {
     schemaSql: '',
     currentUser: null,
     isAuthenticated: false,
-
+    currentHeroStats: null,
     async init() {
         this.setupEventListeners();
         this.setupAuthListeners();
@@ -278,6 +278,9 @@ const adminApp = {
             if (e.key === 'Escape') this.closeAllModals();
         });
 
+        // Edit Hero Stats button
+        document.getElementById('btn-edit-hero-stats')?.addEventListener('click', () => this.openHeroStatsModal());
+
         // Quick Offer button
         const quickOfferBtn = document.getElementById('btn-quick-offer');
         if (quickOfferBtn) {
@@ -346,6 +349,7 @@ const adminApp = {
     async loadAllData() {
         await Promise.all([
             this.loadDashboardStats(),
+            this.loadStudioStats(),
             this.renderScheduleTable(),
             this.renderProgramsGrid(),
             this.renderPricingGrid(),
@@ -427,6 +431,7 @@ const adminApp = {
           `).join('');
                 }
             }
+            await this.loadStudioStats();
             if (window.lucide) lucide.createIcons();
         } catch (err) {
             console.error('Error loading dashboard stats:', err);
@@ -771,6 +776,61 @@ const adminApp = {
         if (window.lucide) lucide.createIcons();
     },
 
+    // HERO STATS (HOMEPAGE STAT COUNTERS)
+    async loadStudioStats() {
+        if (!window.HD_API || !window.HD_API.getStudioStats) return;
+        try {
+            const stats = await window.HD_API.getStudioStats();
+            this.currentHeroStats = stats;
+            const s1n = document.getElementById('dash-stat1-num');
+            const s1l = document.getElementById('dash-stat1-label');
+            const s2n = document.getElementById('dash-stat2-num');
+            const s2l = document.getElementById('dash-stat2-label');
+            const s3n = document.getElementById('dash-stat3-num');
+            const s3l = document.getElementById('dash-stat3-label');
+            const s4n = document.getElementById('dash-stat4-num');
+            const s4l = document.getElementById('dash-stat4-label');
+
+            if (s1n && stats.stat1_number) s1n.textContent = stats.stat1_number;
+            if (s1l && stats.stat1_label) s1l.textContent = stats.stat1_label;
+            if (s2n && stats.stat2_number) s2n.textContent = stats.stat2_number;
+            if (s2l && stats.stat2_label) s2l.textContent = stats.stat2_label;
+            if (s3n && stats.stat3_number) s3n.textContent = stats.stat3_number;
+            if (s3l && stats.stat3_label) s3l.textContent = stats.stat3_label;
+            if (s4n && stats.stat4_number) s4n.textContent = stats.stat4_number;
+            if (s4l && stats.stat4_label) s4l.textContent = stats.stat4_label;
+        } catch (e) {
+            console.warn('Error loading studio stats:', e);
+        }
+    },
+
+    async openHeroStatsModal() {
+        if (!this.currentHeroStats && window.HD_API && window.HD_API.getStudioStats) {
+            this.currentHeroStats = await window.HD_API.getStudioStats();
+        }
+        const s = this.currentHeroStats || {
+            stat1_number: '1,800+', stat1_label: 'Active Members',
+            stat2_number: '2 Floors', stat2_label: 'Spacious Arena',
+            stat3_number: '15+', stat3_label: 'Elite Coaches',
+            stat4_number: '100%', stat4_label: 'Results Driven'
+        };
+
+        const modal = document.getElementById('modal-hero-stats');
+        if (modal) modal.classList.add('active');
+
+        const el = id => document.getElementById(id);
+        if (el('stat1-number-input')) el('stat1-number-input').value = s.stat1_number || '1,800+';
+        if (el('stat1-label-input')) el('stat1-label-input').value = s.stat1_label || 'Active Members';
+        if (el('stat2-number-input')) el('stat2-number-input').value = s.stat2_number || '2 Floors';
+        if (el('stat2-label-input')) el('stat2-label-input').value = s.stat2_label || 'Spacious Arena';
+        if (el('stat3-number-input')) el('stat3-number-input').value = s.stat3_number || '15+';
+        if (el('stat3-label-input')) el('stat3-label-input').value = s.stat3_label || 'Elite Coaches';
+        if (el('stat4-number-input')) el('stat4-number-input').value = s.stat4_number || '100%';
+        if (el('stat4-label-input')) el('stat4-label-input').value = s.stat4_label || 'Results Driven';
+
+        if (window.lucide) lucide.createIcons();
+    },
+
     // EDIT ACTIONS
     async editClass(id) {
         const classes = await window.HD_API.getClasses();
@@ -1059,6 +1119,34 @@ const adminApp = {
                     this.loadDashboardStats();
                 } else {
                     this.showToast('Error saving offer: ' + (res?.error?.message || 'Save failed'), 'error');
+                }
+            } catch (err) {
+                this.showToast('Error: ' + err.message, 'error');
+            }
+        });
+
+        // 6. Hero Stats
+        document.getElementById('form-hero-stats')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                stat1_number: document.getElementById('stat1-number-input').value.trim(),
+                stat1_label: document.getElementById('stat1-label-input').value.trim(),
+                stat2_number: document.getElementById('stat2-number-input').value.trim(),
+                stat2_label: document.getElementById('stat2-label-input').value.trim(),
+                stat3_number: document.getElementById('stat3-number-input').value.trim(),
+                stat3_label: document.getElementById('stat3-label-input').value.trim(),
+                stat4_number: document.getElementById('stat4-number-input').value.trim(),
+                stat4_label: document.getElementById('stat4-label-input').value.trim()
+            };
+
+            try {
+                const res = await window.HD_API.saveStudioStats(payload);
+                if (res && res.success) {
+                    this.showToast('Homepage hero stats updated successfully!', 'success');
+                    this.closeAllModals();
+                    this.loadStudioStats();
+                } else {
+                    this.showToast('Error updating hero stats: ' + (res?.error?.message || 'Save failed'), 'error');
                 }
             } catch (err) {
                 this.showToast('Error: ' + err.message, 'error');

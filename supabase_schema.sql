@@ -96,6 +96,20 @@ CREATE TABLE IF NOT EXISTS public.trial_bookings (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- 7. Homepage Hero Stat Counters Table
+CREATE TABLE IF NOT EXISTS public.studio_stats (
+  id TEXT PRIMARY KEY DEFAULT 'hero_stats',
+  stat1_number TEXT NOT NULL DEFAULT '1,800+',
+  stat1_label TEXT NOT NULL DEFAULT 'Active Members',
+  stat2_number TEXT NOT NULL DEFAULT '2 Floors',
+  stat2_label TEXT NOT NULL DEFAULT 'Spacious Arena',
+  stat3_number TEXT NOT NULL DEFAULT '15+',
+  stat3_label TEXT NOT NULL DEFAULT 'Elite Coaches',
+  stat4_number TEXT NOT NULL DEFAULT '100%',
+  stat4_label TEXT NOT NULL DEFAULT 'Results Driven',
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
 -- ====================================================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
 -- ====================================================================
@@ -106,8 +120,13 @@ ALTER TABLE public.classes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.membership_plans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.offers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.trial_bookings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.studio_stats ENABLE ROW LEVEL SECURITY;
 
 -- Allow public read & management with publishable/anon key
+DROP POLICY IF EXISTS "Allow public read studio_stats" ON public.studio_stats;
+DROP POLICY IF EXISTS "Allow all studio_stats" ON public.studio_stats;
+CREATE POLICY "Allow public read studio_stats" ON public.studio_stats FOR SELECT USING (true);
+CREATE POLICY "Allow all studio_stats" ON public.studio_stats FOR ALL USING (true) WITH CHECK (true);
 DROP POLICY IF EXISTS "Allow public read coaches" ON public.coaches;
 DROP POLICY IF EXISTS "Allow all coaches" ON public.coaches;
 CREATE POLICY "Allow public read coaches" ON public.coaches FOR SELECT USING (true);
@@ -189,3 +208,8 @@ INSERT INTO public.offers (title, banner_text, cta_text, cta_link, discount_code
 VALUES
   ('Silapathar Fitness Launch: Free 1-Day Trial Pass', 'LIMITED PASSES: Claim your Free 1-Day Trial Pass this week!', 'Claim Now →', '#trial-modal', 'HDFREE', 100, 'End of Month', true, true)
 ON CONFLICT DO NOTHING;
+
+-- Studio Stats (Hero Social Proof Counters)
+INSERT INTO public.studio_stats (id, stat1_number, stat1_label, stat2_number, stat2_label, stat3_number, stat3_label, stat4_number, stat4_label)
+VALUES ('hero_stats', '1,800+', 'Active Members', '2 Floors', 'Spacious Arena', '15+', 'Elite Coaches', '100%', 'Results Driven')
+ON CONFLICT (id) DO NOTHING;
