@@ -31,6 +31,7 @@ Official website and administrative console for **HD Fitness Studio**, Silapatha
   - **Programs & Training Zones**: Manage fitness program offerings.
   - **Pricing & Membership Tiers**: Manage subscription rates and feature lists.
   - **Coaches & Trainers**: Manage trainer bios, specialties, and certifications.
+  - **Homepage Hero Stats Editor**: Live visual editor for the 4 social proof milestone counters on the main hero section.
   - **Promotional Offers**: Launch flash discount campaigns and control the live announcement banner.
   - **Trial Leads Management**: View incoming free trial pass requests, update lead status (New, Contacted, Enrolled, Lost), and one-click WhatsApp outreach.
   - **Lead Export**: CSV export of prospective members.
@@ -87,6 +88,28 @@ Official website and administrative console for **HD Fitness Studio**, Silapatha
 
 ---
 
+## 🚢 Deploying to Vercel
+
+This repository is pre-configured and 100% hosting-ready for **Vercel**:
+
+### Method 1: Via Vercel Dashboard (Recommended)
+1. Go to [vercel.com/new](https://vercel.com/new).
+2. Connect your GitHub account and import **`kuldeep-ai-dev/hd-fitness-studio`**.
+3. Under **Framework Preset**, select **"Other"** (or leave default).
+4. Root Directory: `./` (leave default).
+5. Click **Deploy**.
+6. Your site will be live immediately with SSL, global CDN, and automatic branch previews.
+
+### Method 2: Via Vercel CLI
+```bash
+npm i -g vercel
+vercel
+```
+
+The bundled [`vercel.json`](vercel.json) automatically handles clean URLs, `/admin` rewrites, and security headers.
+
+---
+
 ## 🔒 Database Setup
 
-The database schema, tables (`coaches`, `programs`, `classes`, `membership_plans`, `offers`, `trial_bookings`), and Row Level Security (RLS) policies are documented in [`supabase_schema.sql`](supabase_schema.sql).
+The database schema, tables (`studio_stats`, `coaches`, `programs`, `classes`, `membership_plans`, `offers`, `trial_bookings`), and Row Level Security (RLS) policies are documented in [`supabase_schema.sql`](supabase_schema.sql).
